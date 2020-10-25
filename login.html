@@ -1,1 +1,51 @@
-<!DOCTYPE html><html lang="en"><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>登入</title> <style> body { margin: 0; padding: 0; } fieldset { border: 0; } .content { display: grid; height: 20vh; place-items: center; } </style> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> <script src="assets/js/base64.min.js"></script></head><body> <div class="content"> <fieldset> <button class="btn btn-primary" type="button" disabled> <span class="spinner-border spinner-border-sm mr-1 mb-1" role="status" aria-hidden="true"></span> <span id="text" style="font-size: 20px">系統登入中，請稍候...</span> </button> </fieldset> <span id="form_span"></span> <script> window.onload = function () { let url = new URL(window.location.href); let params = url.searchParams; for (let pair of params.entries()) if (pair[0] == "form") document.getElementById("form_span").innerHTML = Base64.decode(decodeURIComponent(pair[1])); else window.location.href = "/"; if (document.getElementById("form_span").innerHTML == "") window.location.href = "/"; if (document.ssoForm) document.ssoForm.submit(); window.setTimeout(function () { if (document.ssoForm) document.ssoForm.submit(); }, 1000); }; </script> </div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>登入</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            fieldset {
+                border: 0;
+            }
+            .content {
+                display: grid;
+                height: 20vh;
+                place-items: center;
+            }
+        </style>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+        <script src="assets/js/jquery-3.4.1.slim.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/base64.min.js"></script>
+    </head>
+    <body>
+        <div class="content">
+            <fieldset>
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm mr-1 mb-1" role="status" aria-hidden="true"></span> <span id="text" style="font-size: 20px;">系統登入中，請稍候...</span>
+                </button>
+            </fieldset>
+            <span id="form_span"></span>
+            <script>
+				$(document).ready(function() {
+                    let url = new URL(window.location.href);
+                    let params = url.searchParams;
+                    for (let pair of params.entries())
+                        if (pair[0] == "form") document.getElementById("form_span").innerHTML = Base64.decode(decodeURIComponent(pair[1]));
+                        else window.location.href = "/";
+                    if (document.getElementById("form_span").innerHTML == "") window.location.href = "/";
+                    if (document.ssoForm) document.ssoForm.submit();
+                    window.setTimeout(function () {
+                        if (document.ssoForm) document.ssoForm.submit();
+                    }, 1000);
+                });
+            </script>
+        </div>
+    </body>
+</html>
